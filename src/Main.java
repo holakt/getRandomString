@@ -66,7 +66,7 @@ public class Main {
                 buffer.append(getChineseRandomChar());
                 continue;
             }
-            if (temp >= simpChi && temp < -simpChi + lowercase.length) {
+            if (temp >= simpChi && temp < simpChi + lowercase.length) {
                 buffer.append(getRandom(TYPE.LETTER));
                 continue;
             }
