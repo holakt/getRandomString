@@ -1,6 +1,8 @@
-package com.hola.util;
+package Work;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,19 +100,23 @@ public class CradID {
 
     void output() {//信息输出
         if (checkcodeVerify()) {
-            String year = cardNum.substring(6, 10);
-            String month = cardNum.substring(10, 12);
-            String day = cardNum.substring(12, 14);
+            int year = Integer.parseInt(cardNum.substring(6, 10));
+            int month = Integer.parseInt(cardNum.substring(10, 12));
+            int day = Integer.parseInt(cardNum.substring(12, 14));
 
             int sexNum = cardNum.charAt(cardNum.length() - 2);
             //奇数为男性，偶数为女性
             sexNum %= 2;
-            Date d = new Date();
-            int now = d.getYear() + 1900;
-            int yearNum = Integer.parseInt(year);
+            GregorianCalendar gc = new GregorianCalendar();
+            int nowYear = gc.get(Calendar.YEAR);
+            int nowMonth = gc.get(Calendar.MONTH)+1;
+            int nowDay = gc.get(Calendar.DAY_OF_MONTH);
+            int age = nowYear - year;
+            if (month > nowMonth) age--;
+            if (month == nowMonth && day > nowDay) age--;
             if (isDate(year + "-" + month + "-" + day)) {
                 System.out.println("生日:" + year + "-" + month + "-" + day);
-                System.out.println("年龄:" + (now - yearNum));
+                System.out.println("年龄:" + age);
                 String sex = (sexNum == 0) ? "女" : "男";
                 System.out.println("性别:" + sex);
             } else System.out.println("身份证月日错误");
