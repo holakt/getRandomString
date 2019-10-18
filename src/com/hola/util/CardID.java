@@ -1,13 +1,12 @@
-package Work;
+package com.hola.util;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class CradID {
+public class CardID {
 
     private static String cardNum;//身份证号码
 
@@ -22,16 +21,15 @@ public class CradID {
     }
 
     public void setCardNum(String cardNum) {
-        CradID.cardNum = cardNum;
+        CardID.cardNum = cardNum;
     }
 
-    CradID(String cardNum) {
+    CardID(String cardNum) {
         this.cardNum = cardNum.toUpperCase();
     }
 
     /**
      * 位数校验：正确应该为18位。
-     *
      * @return
      */
     boolean lenghtVerify() {
@@ -41,9 +39,8 @@ public class CradID {
 
     /**
      * 数字校验：字符串是否为全数字
-     *
-     * @param in
-     * @return
+     * @param in 字符串
+     * @return 是否为全数字
      */
     public boolean isNumber(String in) {
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -51,6 +48,9 @@ public class CradID {
         return isNum.matches();
     }
 
+    /**
+     * 检查是否为正确的十八位身份证号
+     */
     boolean charVerify() {//前面17个应该是数字，最后一位可以为‘X’或‘x’
         if (this.lenghtVerify()) {
             String code17 = cardNum.substring(0, 17);
@@ -62,29 +62,23 @@ public class CradID {
 
     /**
      * 校验身份证第18位是否正确(只适合18位身份证)
-     *
-     * @return
      */
-    public boolean checkcodeVerify() {
+    public boolean checkCodeVerify() {
         if (cardNum.length() != IDCARD_NEW) {
             return false;
         }
         char[] tmp = cardNum.toCharArray();
         String checkCode = sumPower(cardNum);
-        String lastNum = tmp[tmp.length - 1] + "";
-        if (!checkCode.equalsIgnoreCase(lastNum)) {
-            return false;
-        }
-        return true;
+        String lastNum = String.valueOf(tmp[tmp.length - 1]);
+        return checkCode.equalsIgnoreCase(lastNum);
     }
 
     /**
      * 计算身份证的第十八位校验码
-     *
-     * @param cardNum
-     * @return
+     * @param cardNum 身份证号
+     * @return 第十八位校验码
      */
-    public String sumPower(String cardNum) {
+    public  String sumPower(String cardNum) {
         int result = 0;
 
         int[] cardIdArray = new int[cardNum.length() - 1];
@@ -99,7 +93,7 @@ public class CradID {
     }
 
     void output() {//信息输出
-        if (checkcodeVerify()) {
+        if (checkCodeVerify()) {
             int year = Integer.parseInt(cardNum.substring(6, 10));
             int month = Integer.parseInt(cardNum.substring(10, 12));
             int day = Integer.parseInt(cardNum.substring(12, 14));
@@ -119,13 +113,17 @@ public class CradID {
                 System.out.println("年龄:" + age);
                 String sex = (sexNum == 0) ? "女" : "男";
                 System.out.println("性别:" + sex);
-            } else System.out.println("身份证月日错误");
+            } else System.out.println("身份证日期错误");
         }
     }
 
-    public boolean isDate(String s) {
+    /**
+     * 检验日期是否规范
+     * @param date 日期字符串
+     */
+    public boolean isDate(String date) {
         Pattern pattern = Pattern.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-/\\s]?((((0?[13578])|(1[02]))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-/\\s]?((((0?[13578])|(1[02]))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))?$");
-        Matcher m = pattern.matcher(s);
+        Matcher m = pattern.matcher(date);
         return m.matches();
     }
 }

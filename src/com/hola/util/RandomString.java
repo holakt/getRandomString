@@ -1,3 +1,5 @@
+package com.hola.util;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,13 +55,14 @@ public class RandomString {
      * 获取随机字符串
      *
      * @param len     字符串长度
-     * @param simpChi 出现汉字的概率
+     * @param simpChi 出现汉字的概率simpChi/simpChi+94
      * @return 生成的随机字符串
      */
     public static String getRandomChar(int len, int simpChi) {
         Random random = new Random();
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         int max = simpChi + lowercase.length + capital.length + number.length + sign.length;
+        int t =  lowercase.length + capital.length + number.length + sign.length;
         for (int i = 0; i < len; i++) {
             int temp = random.nextInt(max);
             if (temp < simpChi) {
@@ -88,7 +91,7 @@ public class RandomString {
 
 
     /**
-     * 获取随机组合码
+     * 获取除汉字随机组合码
      *
      * @param type 类型
      * @type <br>小写字符型 LETTER,
@@ -98,7 +101,7 @@ public class RandomString {
      */
     public static String getRandom(TYPE type) {
         Random random = new Random();
-        ArrayList<String> temp = new ArrayList<String>();
+        ArrayList<String> temp = new ArrayList<>();
         StringBuffer code = new StringBuffer();
         if (type == TYPE.LETTER) {
             temp.addAll(Arrays.asList(lowercase));
