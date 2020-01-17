@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * @author hola
+ */
 public class RandomString {
     public static void main(String[] args) {
         int len = 1000;
@@ -28,16 +31,19 @@ public class RandomString {
             "{", "}", "|", ":", "\"", "<", ">", "?",
             "[", "]", "\\", ";", "'", ",", ".", "/"};
 
-    //随机生成常见汉字
+    /**
+     * 随机生成常见汉字
+     */
     public static String getChineseRandomChar() {
         String str = "";
         int highCode;
         int lowCode;
 
         Random random = new Random();
-
-        highCode = (176 + Math.abs(random.nextInt(39))); //B0 + 0~39(16~55) 一级汉字所占区
-        lowCode = (161 + Math.abs(random.nextInt(93))); //A1 + 0~93 每区有94个汉字
+        //B0 + 0~39(16~55) 一级汉字所占区
+        highCode = (176 + Math.abs(random.nextInt(39)));
+        //A1 + 0~93 每区有94个汉字
+        lowCode = (161 + Math.abs(random.nextInt(93)));
 
         byte[] b = new byte[2];
         b[0] = (Integer.valueOf(highCode)).byteValue();
@@ -55,14 +61,13 @@ public class RandomString {
      * 获取随机字符串
      *
      * @param len     字符串长度
-     * @param simpChi 出现汉字的概率simpChi/simpChi+94
+     * @param simpChi 出现汉字的概率
      * @return 生成的随机字符串
      */
     public static String getRandomChar(int len, int simpChi) {
         Random random = new Random();
         StringBuilder buffer = new StringBuilder();
         int max = simpChi + lowercase.length + capital.length + number.length + sign.length;
-        int t =  lowercase.length + capital.length + number.length + sign.length;
         for (int i = 0; i < len; i++) {
             int temp = random.nextInt(max);
             if (temp < simpChi) {
@@ -83,7 +88,6 @@ public class RandomString {
             }
             if (temp >= simpChi + lowercase.length + capital.length + number.length && temp < max) {
                 buffer.append(getRandom(TYPE.SIGN));
-                continue;
             }
         }
         return buffer.toString();
@@ -91,7 +95,7 @@ public class RandomString {
 
 
     /**
-     * 获取除汉字随机组合码
+     * 获取随机组合码
      *
      * @param type 类型
      * @type <br>小写字符型 LETTER,
@@ -102,7 +106,7 @@ public class RandomString {
     public static String getRandom(TYPE type) {
         Random random = new Random();
         ArrayList<String> temp = new ArrayList<>();
-        StringBuffer code = new StringBuffer();
+        StringBuilder code = new StringBuilder();
         if (type == TYPE.LETTER) {
             temp.addAll(Arrays.asList(lowercase));
         } else if (type == TYPE.CAPITAL) {
@@ -120,7 +124,7 @@ public class RandomString {
     /**
      * 字符类型枚举
      */
-    public static enum TYPE {
+    public enum TYPE {
         /**
          * 字符型
          */
