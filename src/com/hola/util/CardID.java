@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * @author hola
  */
-public class CradID {
+public class CardID {
 
     /**
      * 身份证号码
@@ -31,7 +31,7 @@ public class CradID {
      */
     private final int[] power = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
 
-    public CradID(String idCardNum) {
+    public CardID(String idCardNum) {
         this.idCardNum = idCardNum.toUpperCase();
     }
 
