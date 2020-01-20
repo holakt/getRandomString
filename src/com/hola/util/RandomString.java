@@ -9,11 +9,6 @@ import java.util.Random;
  * @author hola
  */
 public class RandomString {
-    public static void main(String[] args) {
-        int len = 1000;
-        String str = getRandomChar(len, 200);
-        System.out.println(str);
-    }
 
     private static String[] lowercase = {
             "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
