@@ -1,4 +1,4 @@
-package com.hola.util;
+package org.holate.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.hola.util;
+package org.holate.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
